@@ -3,11 +3,9 @@ from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, Callb
 import configparser
 import logging
 import redis
-import openai
 import os
 # import configparser
 global redis1
-openai.api_key="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"
 def main():
     # Load your token and create an Updater for your Bot
     #config = configparser.ConfigParser()
