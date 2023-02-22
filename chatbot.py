@@ -3,16 +3,21 @@ from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, Callb
 import configparser
 import logging
 import redis
+import openai
+import os
+# import configparser
 global redis1
+openai.api_key="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"
 def main():
     # Load your token and create an Updater for your Bot
-    config = configparser.ConfigParser()
-    config.read('config.ini')
-    updater = Updater(token=(config['TELEGRAM']['ACCESS_TOKEN']), use_context=True)
+    #config = configparser.ConfigParser()
+    #config.read('config.ini')
+    #updater = Updater(token=(config['TELEGRAM']['ACCESS_TOKEN']), use_context=True)
+    updater = Updater(token=(os.environ['ACCESS_TOKEN']), use_context=True)
     dispatcher = updater.dispatcher
     global redis1
-    redis1 = redis.Redis(host=(config['REDIS']['HOST']), password=(config['REDIS']
-['PASSWORD']), port=(config['REDIS']['REDISPORT']))
+    #redis1 = redis.Redis(host=(config['REDIS']['HOST']), password=(config['REDIS']['PASSWORD']), port=(config['REDIS']['REDISPORT']))
+    redis1 = redis.Redis(host=(os.environ['HOST']), password=(os.environ['PASSWORD']), port=(os.environ['REDISPORT']))
     # You can set this logging module, so you will know when and why things do not work as expected
     logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
                         level=logging.INFO)
@@ -21,6 +26,7 @@ def main():
     dispatcher.add_handler(echo_handler)
     # on different commands - answer in Telegram
     dispatcher.add_handler(CommandHandler("add", add))
+    dispatcher.add_handler(CommandHandler("hello", hello))
     dispatcher.add_handler(CommandHandler("help", help_command))
     # To start the bot:
     updater.start_polling()
@@ -43,8 +49,20 @@ def add(update: Update, context: CallbackContext) -> None:
         msg = context.args[0]   # /add keyword <-- this should store the keyword
         redis1.incr(msg)
         update.message.reply_text('You have said ' + msg +  ' for ' +
-redis1.get(msg).decode('UTF-8') + ' times.')
+redis1.get(msg).decode('UTF-8') + 'times.')
     except (IndexError, ValueError):
         update.message.reply_text('Usage: /add <keyword>')
+
+def hello(update: Update, context: CallbackContext) -> None:
+    try:
+        global redis1
+        logging.info(context.args[0])
+        msg = context.args[0]   # /add keyword <-- this should store the keyword
+        redis1.incr(msg)
+        update.message.reply_text('good day ' + msg +
+redis1.get(msg).decode('UTF-8'))
+    except (IndexError, ValueError):
+        update.message.reply_text('Usage: /hello <keyword>')
+
 if __name__ == '__main__':
     main()
