@@ -10,14 +10,9 @@ jobs:
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0
+      - name: Safety Check
+        uses: aufdenpunkt/python-safety-check@master
 
-      - name: Install python safety check
-        shell: "pip install safety"
-        environment:
-          - SAFETY_CHECK_INSTALL="True"
-        when:
-         - "ansible_facts['distribution'] == 'ubuntu'"
-         
       - name: Deploy
         env:
           HEROKU_API_KEY: ${{secrets.HEROKU_API_KEY}}
