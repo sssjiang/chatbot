@@ -1,0 +1,16 @@
+   name: my-actions                 # the name of this work flow
+   on: [push]
+   jobs:
+workflow
+   my-helloworld-job:
+      runs-on: ubuntu-latest
+      steps:
+         - uses: actions/checkout@v2
+                             
+         - name: Say Hello World       # Step 2: Type the word 'Hello World'
+           run: echo 'Hello World'
+         - name: View a file           # Step 3: Two sub-steps involved
+           
+           run: |
+               echo 'Viewing the file: '
+               cat requirements.txt
