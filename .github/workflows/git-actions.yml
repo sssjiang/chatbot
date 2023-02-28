@@ -2,9 +2,9 @@
    on: [push]
    jobs:
 workflow
-   my-helloworld-job:
-      runs-on: ubuntu-latest
-      steps:
+     my-helloworld-job:
+       runs-on: ubuntu-latest
+       steps:
          - uses: actions/checkout@v2
                              
          - name: Say Hello World       # Step 2: Type the word 'Hello World'
