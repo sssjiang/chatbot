@@ -12,6 +12,6 @@ jobs:
           fetch-depth: 0
       - name: Deploy
         env:
-          HEROKU_API_KEY: ${{secrets.76609127-a307-4340-8406-4e26f763b45b}}
+          HEROKU_API_KEY: ${{secrets.HEROKU_API_KEY}}
           HEROKU_APP_NAME: "comp7940chatbo2023"
         run: git push -f https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git main
