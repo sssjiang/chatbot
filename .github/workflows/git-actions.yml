@@ -4,9 +4,9 @@
      my-helloworld-job:
        runs-on: ubuntu-latest
        steps:
-         - uses: actions/checkout@v2
+         - uses: actions/checkout@master
          - name: check
-           uses: aufdenpunkt/python-safety-check@v2               
+           uses: aufdenpunkt/python-safety-check@master               
          - name: Say Hello World       # Step 2: Type the word 'Hello World'
            run: echo 'Hello World'
          - name: View a file           # Step 3: Two sub-steps involved
