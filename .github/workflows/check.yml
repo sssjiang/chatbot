@@ -1,5 +1,4 @@
 name: Python safety check
-
 on:
   push:
     branches:
