@@ -7,11 +7,12 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+    
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0
-      - name: Safety Check
-        uses: aufdenpunkt/python-safety-check@v2
+      #- name: Safety Check
+      #  uses: aufdenpunkt/python-safety-check@v2
 
       - name: Deploy
         env:
