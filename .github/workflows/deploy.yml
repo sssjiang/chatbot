@@ -7,16 +7,12 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
-      - uses: actions/setup-python@v2 
+      - uses: actions/checkout@v2
         with:
-          python-version: '3.8'
           fetch-depth: 0
-
       - name: Safety Check
-        uses: aufdenpunkt/python-safety-check@master
-        with:
-          deps_list: 'requirements'
+        uses: aufdenpunkt/python-safety-check@v2
+
       - name: Deploy
         env:
           HEROKU_API_KEY: ${{secrets.HEROKU_API_KEY}}
